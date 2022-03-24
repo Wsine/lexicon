@@ -1,0 +1,9 @@
+name = "lexicon"
+type = "webpack"
+
+account_id = ""
+zone_id = ""
+route = "lexicon.wsine.top/*"
+workers_dev = true
+compatibility_date = "2022-03-22"
+
