@@ -113,15 +113,16 @@ function handleOptions(request) {
 }
 
 async function fetchAndApply(request) {
+  if (request.method === 'OPTIONS') {
+    return handleOptions(request);
+  }
+  let url = new URL(request.url);
+
   // added by Wsine
   if (url.pathname.startsWith('/add')) {
     return addToLexicon(request)
   }
 
-  if (request.method === 'OPTIONS') {
-    return handleOptions(request);
-  }
-  let url = new URL(request.url);
   url.hostname = 'www.notion.so';
   if (url.pathname === '/robots.txt') {
     return new Response('Sitemap: https://' + MY_DOMAIN + '/sitemap.xml');
