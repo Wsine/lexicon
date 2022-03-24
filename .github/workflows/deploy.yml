@@ -16,13 +16,9 @@ jobs:
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           secrets: |
-            MY_DOMAIN
             AUTH_HEADER_VALUE
             NOTION_API_KEY
-            NOTION_DATABASE_ID
         env:
-          MY_DOMAIN: ${{ secrets.MY_DOMAIN }}
           AUTH_HEADER_VALUE: ${{ secrets.AUTH_HEADER_VALUE }}
           NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
 

@@ -7,3 +7,6 @@ route = "lexicon.wsine.top/*"
 workers_dev = true
 compatibility_date = "2022-03-22"
 
+[vars]
+MY_DOMAIN = "lexicon.wsine.top"
+NOTION_DATABASE_ID = "eb816616d63342c399a42520384305c9"
