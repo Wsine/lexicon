@@ -1,0 +1,17 @@
+name = "lexicon"
+main = "src/index.js"
+account_id = ""
+workers_dev = true
+compatibility_date = "2022-05-24"
+
+[vars]
+MY_DOMAIN = ""
+AUTH_HEADER_VALUE=""
+NOTION_API_KEY=""
+NOTION_DATABASE_ID=""
+YOUDAO_APP_KEY=""
+YOUDAO_APP_SECRET=""
+
+[dev]
+  ip = "0.0.0.0"
+  port = 3000
