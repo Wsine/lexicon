@@ -1,41 +1,4 @@
-async function addToLexicon(request) {
-  const psk = request.headers.get('X-Custom-PSK')
-  if (psk != AUTH_HEADER_VALUE) {
-    return new Response('Sorry, you have supplied an invalid key.', {
-      status: 403,
-    })
-  }
-
-  const url = new URL(request.url)
-  const word = url.pathname.replace('/add', '').replace('/', '');
-  if (word === '') {
-    return new Response('Please call with /add/<word>', {
-      status: 403,
-    })
-  }
-
-  const { Client } = require('@notionhq/client');
-  const notion = new Client({ auth: NOTION_API_KEY });
-
-  const response = await notion.pages.create({
-    parent: {
-      database_id: NOTION_DATABASE_ID
-    },
-    properties: {
-      Query: {
-        title: [{
-          text: {
-            content: word
-          }
-        }]
-      }
-    }
-  })
-  console.log(response)
-
-  return new Response('Added successfully')
-}
-
+import * as dict from './add.js'
 
 /* CONFIGURATION STARTS HERE */
 
@@ -74,8 +37,32 @@ Object.keys(SLUG_TO_PAGE).forEach(slug => {
 });
 
 addEventListener('fetch', event => {
-  event.respondWith(fetchAndApply(event.request));
+  if (event.request.url.pathname.startsWith('/add')) {
+    event.respondWith(handleAuthAdd2Dict(event))
+  } else {
+    event.respondWith(fetchAndApply(event.request));
+  }
 });
+
+async function handleAuthAdd2Dict(event) {
+  const psk = event.request.headers.get('X-Custom-PSK')
+  if (psk != AUTH_HEADER_VALUE) {
+    return new Response('Sorry, you have supplied an invalid key.', {
+      status: 403,
+    })
+  }
+
+  const url = new URL(request.url)
+  const word = url.pathname.replace('/add', '').replace('/', '');
+  if (word === '') {
+    return new Response('Please call with /add/<word>', {
+      status: 403,
+    })
+  }
+  event.waitUntil(dict.addToLexicon(word))
+
+  return new Response('Apended successfully')
+}
 
 function generateSitemap() {
   let sitemap = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -117,11 +104,6 @@ async function fetchAndApply(request) {
     return handleOptions(request);
   }
   let url = new URL(request.url);
-
-  // added by Wsine
-  if (url.pathname.startsWith('/add')) {
-    return addToLexicon(request)
-  }
 
   url.hostname = 'www.notion.so';
   if (url.pathname === '/robots.txt') {
@@ -335,3 +317,4 @@ async function appendJavascript(res, SLUG_TO_PAGE) {
     .on('body', new BodyRewriter(SLUG_TO_PAGE))
     .transform(res);
 }
+

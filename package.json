@@ -4,17 +4,13 @@
   "version": "1.0.0",
   "main": "./index.js",
   "scripts": {
-    "build": "webpack",
-    "update": "node update.js"
+    "dev": "wrangler dev",
+    "publish": "wrangler publish"
   },
   "author": "Wsine <weizhy3@hotmail.com>",
   "license": "MIT",
   "dependencies": {
     "@notionhq/client": "^1.0.4",
-    "axios": "^0.26.1",
-    "crypto-js": "^4.1.1",
-    "dotenv": "^16.0.0",
-    "form-data": "^4.0.0",
-    "lodash": "^4.17.21"
+    "wrangler": "^2.0.6"
   }
 }
