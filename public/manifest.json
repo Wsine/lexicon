@@ -1,0 +1,17 @@
+{
+  "name": "Lexicon Service",
+  "short_name": "Lexicon",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#55acee",
+  "background_color": "#ccd6dd",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
