@@ -51,10 +51,21 @@ export default function Index() {
           status: 'warning',
           isClosable: true
         })
+        return new Promise((resolve, reject) => {
+          if (r.message === 'success') {
+            return resolve(r.message)
+          } else {
+            return reject(r.message)
+          }
+        })
       })
       .catch(err => console.warn(err))
     }))
-    .then(() => setLoading(false))
+    .then(() => {
+      setLoading(false)
+      setTimeout(() => close(), 1000)
+    })
+    .catch(err => console.warn(err))
   }
 
   return (
@@ -91,6 +102,7 @@ export default function Index() {
         <Input
           id='context'
           placeholder='Context sentence'
+          autoComplete='off'
           onChange={(e) => {
             const sentence = e.target.value.trim()
             if (sentence.length === 0) return
